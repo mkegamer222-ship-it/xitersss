@@ -1268,18 +1268,25 @@ body::before {
    TEA LIQUID GLASS EFFECTS
    ============================================ */
 
-/* Liquid Glass Base */
-.liquid-glass,
+/* Glass base — applied cleanly without pseudo-elements to avoid conflicts */
 .link-card,
 .admin-card,
 .auth-card,
 .modal,
 .side-menu,
 .toast,
+.empty-icon,
 .search-bar input,
-.empty-icon {
-    background: rgba(22, 30, 51, 0.45) !important;
-    background-blend-mode: luminosity;
+.form-group input,
+.form-group textarea,
+.admin-link-item,
+.action-btn,
+.hamburger,
+.admin-user-badge,
+.stats-badge,
+.badge,
+.access-log-table-wrapper {
+    background: rgba(22, 30, 51, 0.45);
     backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
     -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1287,68 +1294,17 @@ body::before {
         inset 0 1px 1px rgba(255, 255, 255, 0.1),
         0 8px 32px rgba(0, 0, 0, 0.25),
         0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
 }
 
-/* Liquid Glass Inner Shine */
-.liquid-glass::before,
-.link-card::before,
-.admin-card::before,
-.auth-card::before,
-.modal::before,
-.side-menu::before,
-.toast::before,
-.search-bar input::before,
-.empty-icon::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1.4px;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.5) 0%,
-        rgba(255, 255, 255, 0.15) 20%,
-        rgba(255, 255, 255, 0) 40%,
-        rgba(255, 255, 255, 0) 60%,
-        rgba(255, 255, 255, 0.15) 80%,
-        rgba(255, 255, 255, 0.5) 100%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    mix-blend-mode: screen;
-    opacity: 0.35;
+/* Hover glass glow */
+.link-card:hover {
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(59, 130, 246, 0.08);
 }
 
-/* Liquid Glass Top Highlight */
-.liquid-glass::after,
-.link-card::after,
-.admin-card::after,
-.auth-card::after,
-.modal::after,
-.side-menu::after,
-.toast::after,
-.search-bar input::after,
-.empty-icon::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(
-        120% 80% at 50% 0%,
-        rgba(255, 255, 255, 0.18) 0%,
-        rgba(255, 255, 255, 0.05) 40%,
-        transparent 70%
-    );
-    mix-blend-mode: overlay;
-    pointer-events: none;
-}
-
-/* Override existing card hover border for liquid glass */
-.link-card:hover,
 .admin-card:hover,
 .auth-card:hover,
 .modal:hover {
@@ -1359,31 +1315,31 @@ body::before {
         0 0 20px rgba(59, 130, 246, 0.08);
 }
 
-/* Navbar Liquid Glass */
+/* Navbar glass */
 .navbar {
-    background: rgba(10, 14, 26, 0.55) !important;
+    background: rgba(10, 14, 26, 0.55);
     backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
     -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Overlay with liquid glass feel */
+/* Overlay */
 .overlay.active {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px) saturate(120%);
 }
 
-/* Modal overlay deeper blur */
+/* Modal overlay */
 .modal-overlay {
     background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(20px) saturate(140%);
 }
 
-/* Admin link items liquid touch */
+/* Admin link items */
 .admin-link-item {
     background: rgba(20, 28, 47, 0.5);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1392,82 +1348,36 @@ body::before {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Action buttons glass */
+/* Action buttons */
 .action-btn {
     background: rgba(22, 30, 51, 0.6);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Search bar liquid glass input */
-.search-bar input {
-    background: rgba(22, 30, 51, 0.45) !important;
-}
-
+/* Search */
 .search-bar input:focus {
-    background: rgba(20, 28, 47, 0.65) !important;
     border-color: rgba(59, 130, 246, 0.4);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
-/* Form inputs liquid glass */
-.form-group input,
-.form-group textarea {
-    background: rgba(20, 28, 47, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
+/* Form inputs */
 .form-group input:focus,
 .form-group textarea:focus {
-    background: rgba(15, 21, 37, 0.7);
     border-color: rgba(59, 130, 246, 0.4);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* Empty icon glass */
-.empty-icon {
-    background: rgba(22, 30, 51, 0.45) !important;
-}
-
-/* Toast liquid glass */
-.toast {
-    background: rgba(22, 30, 51, 0.65) !important;
-    backdrop-filter: blur(30px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Hamburger glass */
-.hamburger {
-    background: rgba(20, 28, 47, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
+/* Hamburger */
 .hamburger:hover {
     background: rgba(30, 40, 71, 0.7);
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Admin user badge glass */
-.admin-user-badge {
-    background: rgba(22, 30, 51, 0.45);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Stats badge glass */
-.stats-badge {
-    background: rgba(59, 130, 246, 0.12);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-/* Badge glass */
-.badge {
-    background: rgba(59, 130, 246, 0.15);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+/* Access log wrapper */
+.access-log-table-wrapper {
+    background: rgba(20, 28, 47, 0.35);
+    backdrop-filter: blur(20px);
 }
 
 /* ============================================
