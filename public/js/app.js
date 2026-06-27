@@ -51,6 +51,11 @@
     const adminLinkCount = $('#adminLinkCount');
     const adminUsername = $('#adminUsername');
 
+    const accessLogTable = $('#accessLogTable');
+    const accessLogBody = $('#accessLogBody');
+    const accessLogCount = $('#accessLogCount');
+    const accessLogEmpty = $('#accessLogEmpty');
+
     const editModal = $('#editModal');
     const editForm = $('#editForm');
     const closeModal = $('#closeModal');
@@ -182,6 +187,51 @@
             renderPublicLinks(allLinks);
             renderAdminLinks(allLinks);
         }
+    }
+
+    async function loadAccessLogs() {
+        const { ok, data } = await apiRequest('/api/access-log');
+        if (ok) {
+            renderAccessLogs(data.logs);
+        }
+    }
+
+    function formatAccessDate(isoString) {
+        const date = new Date(isoString);
+        return date.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
+
+    function truncate(str, len) {
+        if (!str) return '';
+        return str.length > len ? str.slice(0, len) + '…' : str;
+    }
+
+    function renderAccessLogs(logs) {
+        accessLogCount.textContent = logs.length;
+
+        if (logs.length === 0) {
+            accessLogTable.style.display = 'none';
+            accessLogEmpty.style.display = 'block';
+            return;
+        }
+
+        accessLogTable.style.display = 'table';
+        accessLogEmpty.style.display = 'none';
+
+        accessLogBody.innerHTML = logs.slice(0, 50).map(log => 
+            `<tr>
+                <td>${escapeHtml(log.ip)}</td>
+                <td>${formatAccessDate(log.timestamp)}</td>
+                <td title="${escapeHtml(log.userAgent)}">${truncate(escapeHtml(log.userAgent), 50)}</td>
+            </tr>`
+        ).join('');
     }
 
     async function postLink(title, url, description, category) {
@@ -325,6 +375,7 @@
                 adminView.classList.add('active');
                 menuAdmin.classList.add('active-item');
                 adminUsername.textContent = 'admin';
+                loadAccessLogs();
                 break;
         }
 

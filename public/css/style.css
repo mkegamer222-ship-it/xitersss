@@ -1263,3 +1263,366 @@ body::before {
         transform: translateY(0);
     }
 }
+
+/* ============================================
+   TEA LIQUID GLASS EFFECTS
+   ============================================ */
+
+/* Liquid Glass Base */
+.liquid-glass,
+.link-card,
+.admin-card,
+.auth-card,
+.modal,
+.side-menu,
+.toast,
+.search-bar input,
+.empty-icon {
+    background: rgba(22, 30, 51, 0.45) !important;
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Liquid Glass Inner Shine */
+.liquid-glass::before,
+.link-card::before,
+.admin-card::before,
+.auth-card::before,
+.modal::before,
+.side-menu::before,
+.toast::before,
+.search-bar input::before,
+.empty-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.15) 20%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0.15) 80%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.35;
+}
+
+/* Liquid Glass Top Highlight */
+.liquid-glass::after,
+.link-card::after,
+.admin-card::after,
+.auth-card::after,
+.modal::after,
+.side-menu::after,
+.toast::after,
+.search-bar input::after,
+.empty-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        120% 80% at 50% 0%,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        transparent 70%
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Override existing card hover border for liquid glass */
+.link-card:hover,
+.admin-card:hover,
+.auth-card:hover,
+.modal:hover {
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(59, 130, 246, 0.08);
+}
+
+/* Navbar Liquid Glass */
+.navbar {
+    background: rgba(10, 14, 26, 0.55) !important;
+    backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay with liquid glass feel */
+.overlay.active {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px) saturate(120%);
+}
+
+/* Modal overlay deeper blur */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Admin link items liquid touch */
+.admin-link-item {
+    background: rgba(20, 28, 47, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-link-item:hover {
+    background: rgba(30, 40, 71, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Action buttons glass */
+.action-btn {
+    background: rgba(22, 30, 51, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Search bar liquid glass input */
+.search-bar input {
+    background: rgba(22, 30, 51, 0.45) !important;
+}
+
+.search-bar input:focus {
+    background: rgba(20, 28, 47, 0.65) !important;
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Form inputs liquid glass */
+.form-group input,
+.form-group textarea {
+    background: rgba(20, 28, 47, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background: rgba(15, 21, 37, 0.7);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Empty icon glass */
+.empty-icon {
+    background: rgba(22, 30, 51, 0.45) !important;
+}
+
+/* Toast liquid glass */
+.toast {
+    background: rgba(22, 30, 51, 0.65) !important;
+    backdrop-filter: blur(30px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Hamburger glass */
+.hamburger {
+    background: rgba(20, 28, 47, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hamburger:hover {
+    background: rgba(30, 40, 71, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Admin user badge glass */
+.admin-user-badge {
+    background: rgba(22, 30, 51, 0.45);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Stats badge glass */
+.stats-badge {
+    background: rgba(59, 130, 246, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Badge glass */
+.badge {
+    background: rgba(59, 130, 246, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* ============================================
+   FLOATING BUBBLES BACKGROUND
+   ============================================ */
+.bubbles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    width: var(--size);
+    height: var(--size);
+    left: var(--left);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(96, 165, 250, 0.25) 0%,
+        rgba(59, 130, 246, 0.12) 40%,
+        rgba(37, 99, 235, 0.04) 70%,
+        transparent 100%
+    );
+    box-shadow:
+        inset -4px -4px 12px rgba(255, 255, 255, 0.08),
+        inset 4px 4px 12px rgba(59, 130, 246, 0.15),
+        0 0 20px rgba(59, 130, 246, 0.08);
+    backdrop-filter: blur(2px);
+    animation: floatUp var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    opacity: 0.7;
+}
+
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 25%;
+    height: 15%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(-30deg);
+    filter: blur(1px);
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 15%;
+    width: 35%;
+    height: 35%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.7;
+    }
+    25% {
+        transform: translateY(-25vh) translateX(20px) scale(1.05);
+    }
+    50% {
+        transform: translateY(-50vh) translateX(-15px) scale(0.95);
+    }
+    75% {
+        transform: translateY(-75vh) translateX(25px) scale(1.02);
+    }
+    95% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-110vh) translateX(-10px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   ACCESS LOG TABLE
+   ============================================ */
+.access-log-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.access-log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.access-log-table thead {
+    background: rgba(20, 28, 47, 0.6);
+}
+
+.access-log-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
+}
+
+.access-log-table td {
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.access-log-table tbody tr {
+    transition: var(--transition);
+}
+
+.access-log-table tbody tr:hover {
+    background: rgba(59, 130, 246, 0.06);
+}
+
+.access-log-table td:first-child {
+    color: var(--text-accent);
+    font-weight: 500;
+}
+
+.access-log-table td:nth-child(2) {
+    white-space: nowrap;
+}
+
+.access-log-table td:nth-child(3) {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .access-log-table td:nth-child(3) {
+        max-width: 120px;
+    }
+}

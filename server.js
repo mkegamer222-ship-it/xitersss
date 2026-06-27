@@ -18,6 +18,11 @@ if (!fs.existsSync(linksFile)) {
     fs.writeFileSync(linksFile, JSON.stringify([], null, 2));
 }
 
+const accessLogFile = path.join(dataDir, 'access-log.json');
+if (!fs.existsSync(accessLogFile)) {
+    fs.writeFileSync(accessLogFile, JSON.stringify([], null, 2));
+}
+
 // Credenciais do admin
 const ADMIN_USER = 'kdss';
 const ADMIN_PASS = 'lindão';
@@ -50,6 +55,20 @@ function saveLinks(links) {
     fs.writeFileSync(linksFile, JSON.stringify(links, null, 2));
 }
 
+// Funções auxiliares para logs de acesso
+function getAccessLogs() {
+    try {
+        const data = fs.readFileSync(accessLogFile, 'utf8');
+        return JSON.parse(data);
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveAccessLogs(logs) {
+    fs.writeFileSync(accessLogFile, JSON.stringify(logs, null, 2));
+}
+
 // Middleware de autenticação
 function requireAuth(req, res, next) {
     if (req.session && req.session.isAdmin) {
@@ -57,6 +76,37 @@ function requireAuth(req, res, next) {
     }
     return res.status(401).json({ success: false, message: 'Não autorizado' });
 }
+
+// Middleware de log de acessos (ignora rotas de API estáticas)
+function accessLogger(req, res, next) {
+    // Ignora requisições a arquivos estáticos e API (exceto a própria rota de log)
+    if (req.path.startsWith('/api/') || req.path.startsWith('/css/') || req.path.startsWith('/js/')) {
+        return next();
+    }
+
+    try {
+        const logs = getAccessLogs();
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+        const logEntry = {
+            id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+            ip: ip.replace('::ffff:', ''),
+            userAgent: req.headers['user-agent'] || '',
+            path: req.path,
+            method: req.method,
+            timestamp: new Date().toISOString()
+        };
+
+        logs.unshift(logEntry);
+        // Mantém apenas os últimos 500 registros
+        if (logs.length > 500) logs.pop();
+        saveAccessLogs(logs);
+    } catch (e) {
+        // Silencioso
+    }
+    next();
+}
+
+app.use(accessLogger);
 
 // ============ ROTAS DA API ============
 
@@ -169,6 +219,12 @@ app.put('/api/links/:id', requireAuth, (req, res) => {
 
     saveLinks(links);
     res.json({ success: true, message: 'Link atualizado!', link: links[index] });
+});
+
+// Obter logs de acesso (apenas admin)
+app.get('/api/access-log', requireAuth, (req, res) => {
+    const logs = getAccessLogs();
+    res.json({ success: true, logs });
 });
 
 // Servir index para qualquer rota não-API
